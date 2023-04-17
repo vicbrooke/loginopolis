@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { User } = require("./db");
+const { User, Post } = require("./db");
 const bcrypt = require("bcrypt");
 
 app.use(express.json());
@@ -38,11 +38,42 @@ app.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ where: { username } });
+    if (!user) {
+      res.status(401).send(`no user ${username} found in database`);
+    }
     const result = await bcrypt.compare(password, user.password);
     if (!result) {
       res.status(401).send(`incorrect username or password`);
     } else {
       res.status(200).send(`successfully logged in user ${user.username}`);
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+// GET /me
+// TODO - use the username and password to authenticate the user. If the password matches, send back the associated data created in the last bonus step.
+app.get("/me", async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({
+      where: { username },
+      include: [
+        {
+          model: Post,
+        },
+      ],
+    });
+    if (!user) {
+      res.status(401).send(`no user ${username} found in database`);
+    }
+    const result = await bcrypt.compare(password, user.password);
+    if (!result) {
+      res.status(401).send(`incorrect username or password`);
+    } else {
+      res.status(200).send(user.posts);
     }
   } catch (error) {
     console.error(error);
