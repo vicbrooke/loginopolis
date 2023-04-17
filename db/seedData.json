@@ -1,18 +1,38 @@
 [
   {
     "username": "brett",
-    "password": "brettpass"
+    "password": "brettpass",
+    "posts": [{
+      "title": "Brett's first post",
+        "body": "This is the body of Brett's first post"
+    }]
   },
   {
     "username": "antonette",
-    "password": "headfirst"
+    "password": "headfirst",
+    "posts": []
   },
   {
     "username": "karianne",
-    "password": "scarykary"
+    "password": "scarykary",
+    "posts": []
   },
   {
     "username": "buster",
-    "password": "bustthis"
+    "password": "bustthis",
+    "posts": [
+      {
+        "title": "Buster's first post",
+        "body": "This is the body of Buster's first post"
+      },
+      {
+        "title": "Buster's second post",
+        "body": "This is the body of Buster's second post"
+      },
+      {
+        "title": "Buster's third post",
+        "body": "This is the body of Buster's third post"
+      }
+    ]
   }
 ]
